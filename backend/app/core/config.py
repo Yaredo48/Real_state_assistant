@@ -1,33 +1,40 @@
 """
-Configuration management for DealLens AI.
-Loads and validates environment variables.
+Configuration management using Pydantic settings.
+File: backend/app/core/config.py
 """
 
 from typing import List, Optional, Union
 from pydantic_settings import BaseSettings
-from pydantic import AnyHttpUrl, validator
+from pydantic import AnyHttpUrl, validator, Field
 import secrets
+import os
 
 
 class Settings(BaseSettings):
     """
     Application settings loaded from environment variables.
+    All values can be overridden in .env file.
     """
     
-    # App
+    # App Settings
     APP_NAME: str = "DealLens AI"
     APP_VERSION: str = "0.1.0"
     ENVIRONMENT: str = "development"
     DEBUG: bool = True
+    API_PREFIX: str = "/api"
+    PROJECT_NAME: str = "DealLens AI Platform"
+    
+    # Database
+    DATABASE_URL: str
+    DATABASE_POOL_SIZE: int = 5
+    DATABASE_MAX_OVERFLOW: int = 10
     
     # Security
     SECRET_KEY: str = secrets.token_urlsafe(32)
     ALGORITHM: str = "HS256"
     ACCESS_TOKEN_EXPIRE_MINUTES: int = 30
     REFRESH_TOKEN_EXPIRE_DAYS: int = 7
-    
-    # Database
-    DATABASE_URL: str = "postgresql://postgres:password@localhost:5432/dealens_db"
+    BCRYPT_ROUNDS: int = 12
     
     # CORS
     BACKEND_CORS_ORIGINS: List[AnyHttpUrl] = []
@@ -45,11 +52,27 @@ class Settings(BaseSettings):
     MAX_UPLOAD_SIZE: int = 25 * 1024 * 1024  # 25MB
     UPLOAD_PATH: str = "./uploads"
     ALLOWED_EXTENSIONS: List[str] = [".pdf", ".jpg", ".jpeg", ".png"]
+    MAX_FILES_PER_UPLOAD: int = 5
+    
+    # Email
+    SMTP_HOST: Optional[str] = None
+    SMTP_PORT: Optional[int] = None
+    SMTP_USER: Optional[str] = None
+    SMTP_PASSWORD: Optional[str] = None
+    
+    # AI Services
+    OPENAI_API_KEY: Optional[str] = None
+    PINECONE_API_KEY: Optional[str] = None
+    PINECONE_ENVIRONMENT: Optional[str] = None
     
     class Config:
         env_file = ".env"
+        env_file_encoding = "utf-8"
         case_sensitive = True
 
 
-# Create global settings object
+# Create global settings instance
 settings = Settings()
+
+# Create upload directory if it doesn't exist
+os.makedirs(settings.UPLOAD_PATH, exist_ok=True)
