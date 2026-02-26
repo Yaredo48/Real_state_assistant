@@ -36,3 +36,37 @@ httpx>=0.26,<1.0
 
 # Utilities
 uuid>=1.30,<2.0
+
+# PDF Processing
+PyPDF2
+pdf2image
+pytesseract
+
+# OCR Support
+tesseract-ocr  # System dependency
+tesseract-ocr-amh  # Amharic language pack
+
+# File Handling
+python-magic
+aiofiles
+
+
+
+# Vector Database
+pinecone-client
+
+# Embeddings
+openai
+tiktoken
+
+# RAG Framework
+langchain
+langchain-openai
+langchain-pinecone
+
+# Text Processing
+sentence-transformers
+nltk
+
+# Utils
+tenacity

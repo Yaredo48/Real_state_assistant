@@ -94,3 +94,11 @@ async def startup_event():
 async def shutdown_event():
     """Run on application shutdown."""
     logger.info(f"Shutting down {settings.APP_NAME}")
+
+
+
+# Add to imports
+from app.api.routes import rag
+
+# Add to routers section after other routers
+app.include_router(rag.router, prefix=f"{settings.API_PREFIX}/rag", tags=["RAG"])

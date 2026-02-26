@@ -53,3 +53,8 @@ class Property(BaseModel):
     def document_types(self):
         """Get list of document types for this property."""
         return list(set(doc.document_type for doc in self.documents if doc.document_type))
+    
+
+# Add to Property class relationships
+analysis_jobs = relationship("AnalysisJob", back_populates="property", cascade="all, delete-orphan")
+reports = relationship("Report", back_populates="property", cascade="all, delete-orphan")

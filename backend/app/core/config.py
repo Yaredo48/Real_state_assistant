@@ -71,6 +71,41 @@ class Settings(BaseSettings):
         case_sensitive = True
 
 
+
+# Add to Settings class in config.py
+
+# AI Services
+OPENAI_API_KEY: Optional[str] = None
+OPENAI_EMBEDDING_MODEL: str = "text-embedding-3-small"
+OPENAI_CHAT_MODEL: str = "gpt-4"
+
+# Pinecone
+PINECONE_API_KEY: Optional[str] = None
+PINECONE_ENVIRONMENT: Optional[str] = None
+PINECONE_INDEX_NAME: str = "dealens-ai"
+PINECONE_DIMENSION: int = 1536
+PINECONE_METRIC: str = "cosine"
+
+# Chunking
+CHUNK_SIZE: int = 1000
+CHUNK_OVERLAP: int = 200
+EMBEDDING_BATCH_SIZE: int = 100
+
+# Validate AI settings
+@validator("OPENAI_API_KEY")
+def validate_openai_key(cls, v):
+    if not v and cls.ENVIRONMENT == "production":
+        raise ValueError("OPENAI_API_KEY must be set in production")
+    return v
+
+@validator("PINECONE_API_KEY")
+def validate_pinecone_key(cls, v):
+    if not v and cls.ENVIRONMENT == "production":
+        raise ValueError("PINECONE_API_KEY must be set in production")
+    return v
+
+
+
 # Create global settings instance
 settings = Settings()
 
