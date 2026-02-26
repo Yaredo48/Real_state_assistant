@@ -101,14 +101,14 @@ async def root():
 
 
 
-# RAG routes
-from app.api.routes import rag
-app.include_router(rag.router, prefix=f"{settings.API_PREFIX}/rag", tags=["RAG"])
+# RAG routes disabled
+# from app.api.routes import rag
+# app.include_router(rag.router, prefix=f"{settings.API_PREFIX}/rag", tags=["RAG"])
 
-# Analysis routes
-from app.api.routes import analysis
-app.include_router(
-    analysis.router,
-    prefix=f"{settings.API_PREFIX}/analysis",
-    tags=["Analysis"]
-)
+# Analysis routes disabled
+# from app.api.routes import analysis
+# app.include_router(
+#     analysis.router,
+#     prefix=f"{settings.API_PREFIX}/analysis",
+#     tags=["Analysis"]
+# )

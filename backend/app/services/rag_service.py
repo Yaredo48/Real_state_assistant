@@ -278,5 +278,19 @@ class RAGService:
         """
 
 
-# Create singleton instance
-rag_service = RAGService()
+# Create singleton instance - lazily initialized
+rag_service = None
+
+def get_rag_service():
+    """Get or create RAG service instance."""
+    global rag_service
+    if rag_service is None:
+        if not settings.OPENAI_API_KEY:
+            raise ValueError("OPENAI_API_KEY is not set")
+        rag_service = RAGService()
+    return rag_service
+
+# Backwards compatibility - will raise error if API key not set
+@property
+def rag_service():
+    return get_rag_service()

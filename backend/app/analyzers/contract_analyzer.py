@@ -486,3 +486,6 @@ class ContractAnalyzer:
         """Find approximate location of pattern in document."""
         # Simplified - would need page tracking in production
         return "Refer to contract section containing this clause"
+
+# Create singleton instance
+contract_analyzer = ContractAnalyzer()

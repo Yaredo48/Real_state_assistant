@@ -63,6 +63,7 @@ tiktoken
 langchain
 langchain-openai
 langchain-pinecone
+langchain-text-splitters==0.2.2
 
 # Text Processing
 sentence-transformers
