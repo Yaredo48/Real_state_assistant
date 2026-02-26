@@ -5,11 +5,10 @@ File: backend/app/services/rag_service.py
 
 from langchain_openai import OpenAIEmbeddings, OpenAI, ChatOpenAI
 from langchain_pinecone import PineconeVectorStore
-from langchain.chains import RetrievalQA
-from langchain_core.prompts import PromptTemplate
 from langchain_core.documents import Document
-from langchain.text_splitter import RecursiveCharacterTextSplitter
-import pinecone
+from langchain_core.runnables import RunnableSequence
+from langchain_text_splitters import RecursiveCharacterTextSplitter
+from pinecone import Pinecone, ServerlessSpec
 import logging
 from typing import List, Dict, Any, Optional
 from uuid import UUID
@@ -58,14 +57,13 @@ class RAGService:
             namespace: Pinecone namespace
         """
         try:
-            # Initialize Pinecone
-            pinecone.init(
-                api_key=settings.PINECONE_API_KEY,
-                environment=settings.PINECONE_ENVIRONMENT
+            # Initialize Pinecone client (new API)
+            pc = Pinecone(
+                api_key=settings.PINECONE_API_KEY
             )
             
             # Create vector store
-            self.vectorstore = Pinecone.from_existing_index(
+            self.vectorstore = PineconeVectorStore.from_existing_index(
                 index_name=settings.PINECONE_INDEX_NAME,
                 embedding=self.embeddings,
                 namespace=namespace
@@ -115,7 +113,7 @@ class RAGService:
                 documents.append(doc)
             
             # Generate embeddings and index
-            vectorstore = Pinecone.from_documents(
+            self.vectorstore = PineconeVectorStore.from_documents(
                 documents=documents,
                 embedding=self.embeddings,
                 index_name=settings.PINECONE_INDEX_NAME,

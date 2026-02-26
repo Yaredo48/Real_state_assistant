@@ -101,17 +101,12 @@ async def root():
 
 
 
-# Add to imports
+# RAG routes
 from app.api.routes import rag
-
-# Add to routers section after other routers
 app.include_router(rag.router, prefix=f"{settings.API_PREFIX}/rag", tags=["RAG"])
 
-
-# Add to imports
+# Analysis routes
 from app.api.routes import analysis
-
-# Add to routers section
 app.include_router(
     analysis.router,
     prefix=f"{settings.API_PREFIX}/analysis",
