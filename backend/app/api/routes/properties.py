@@ -17,7 +17,7 @@ from app.schemas.property import (
 )
 from app.models.property import Property
 from app.models.user import User
-from app.api.routes.dependencies import get_current_active_user
+from app.api.routes.dependencies import get_current_active_user, require_credits
 
 router = APIRouter()
 

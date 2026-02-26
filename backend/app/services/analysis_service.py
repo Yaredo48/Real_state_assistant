@@ -16,7 +16,7 @@ from app.models.property import Property
 from app.models.user import User
 from app.analyzers.title_analyzer import title_analyzer
 from app.analyzers.contract_analyzer import contract_analyzer
-from app.analyzers.cross_document_analyzer import cross_document_analyzer
+from app.analyzers.ross_document_analyzer import cross_document_analyzer
 from app.analyzers.risk_scorer import risk_scorer
 from app.services.report_generator import report_generator
 from app.services.rag_service import rag_service

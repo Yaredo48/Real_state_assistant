@@ -1,0 +1,10 @@
+{
+  "venvPath": "/home/yared/Documents/Bussines-Project/Real_state_assistant/backend",
+  "venv": "venv",
+  "pythonVersion": "3.11",
+  "extraPaths": [
+    "${workspaceFolder}/backend/app"
+  ],
+  "typeCheckingMode": "standard",
+  "reportMissingTypeStubs": false
+}

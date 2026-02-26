@@ -12,8 +12,7 @@ import json
 
 from app.services.document_service import document_processor
 from app.core.database import SessionLocal
-from app.models.document import Document
-from app.models.document_chunk import DocumentChunk
+from app.models.document import Document, DocumentChunk
 
 logger = logging.getLogger(__name__)
 

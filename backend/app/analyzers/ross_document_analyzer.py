@@ -375,3 +375,6 @@ class CrossDocumentAnalyzer:
             return name.strip()
         
         return self._values_match(normalize(name1), normalize(name2), 0.85)
+
+# Create singleton instance
+cross_document_analyzer = CrossDocumentAnalyzer()
