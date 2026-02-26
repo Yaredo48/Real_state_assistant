@@ -4,7 +4,7 @@ File: backend/app/core/config.py
 """
 
 from typing import List, Optional, Union
-from pydantic_settings import BaseSettings
+from pydantic_settings import BaseSettings, SettingsConfigDict
 from pydantic import AnyHttpUrl, validator, Field
 import secrets
 import os
@@ -16,6 +16,12 @@ class Settings(BaseSettings):
     All values can be overridden in .env file.
     """
     
+    model_config = SettingsConfigDict(
+        env_file=".env",
+        env_file_encoding="utf-8",
+        case_sensitive=True,
+    )
+    
     # App Settings
     APP_NAME: str = "DealLens AI"
     APP_VERSION: str = "0.1.0"
@@ -25,7 +31,7 @@ class Settings(BaseSettings):
     PROJECT_NAME: str = "DealLens AI Platform"
     
     # Database
-    DATABASE_URL: str
+    DATABASE_URL: str = "postgresql://postgres:ANORINIPER@localhost:5432/dealens_db"
     DATABASE_POOL_SIZE: int = 5
     DATABASE_MAX_OVERFLOW: int = 10
     
@@ -62,48 +68,36 @@ class Settings(BaseSettings):
     
     # AI Services
     OPENAI_API_KEY: Optional[str] = None
+    OPENAI_EMBEDDING_MODEL: str = "text-embedding-3-small"
+    OPENAI_CHAT_MODEL: str = "gpt-4"
+
+    # Pinecone
     PINECONE_API_KEY: Optional[str] = None
     PINECONE_ENVIRONMENT: Optional[str] = None
+    PINECONE_INDEX_NAME: str = "dealens-ai"
+    PINECONE_DIMENSION: int = 1536
+    PINECONE_METRIC: str = "cosine"
+
+    # Chunking
+    CHUNK_SIZE: int = 1000
+    CHUNK_OVERLAP: int = 200
+    EMBEDDING_BATCH_SIZE: int = 100
     
-    class Config:
-        env_file = ".env"
-        env_file_encoding = "utf-8"
-        case_sensitive = True
+    @validator("OPENAI_API_KEY")
+    def validate_openai_key(cls, v):
+        """Validate OpenAI API key for production."""
+        # Skip validation if value is None (not set)
+        if v is None:
+            return v
+        return v
 
-
-
-# Add to Settings class in config.py
-
-# AI Services
-OPENAI_API_KEY: Optional[str] = None
-OPENAI_EMBEDDING_MODEL: str = "text-embedding-3-small"
-OPENAI_CHAT_MODEL: str = "gpt-4"
-
-# Pinecone
-PINECONE_API_KEY: Optional[str] = None
-PINECONE_ENVIRONMENT: Optional[str] = None
-PINECONE_INDEX_NAME: str = "dealens-ai"
-PINECONE_DIMENSION: int = 1536
-PINECONE_METRIC: str = "cosine"
-
-# Chunking
-CHUNK_SIZE: int = 1000
-CHUNK_OVERLAP: int = 200
-EMBEDDING_BATCH_SIZE: int = 100
-
-# Validate AI settings
-@validator("OPENAI_API_KEY")
-def validate_openai_key(cls, v):
-    if not v and cls.ENVIRONMENT == "production":
-        raise ValueError("OPENAI_API_KEY must be set in production")
-    return v
-
-@validator("PINECONE_API_KEY")
-def validate_pinecone_key(cls, v):
-    if not v and cls.ENVIRONMENT == "production":
-        raise ValueError("PINECONE_API_KEY must be set in production")
-    return v
-
+    @validator("PINECONE_API_KEY")
+    def validate_pinecone_key(cls, v):
+        """Validate Pinecone API key for production."""
+        # Skip validation if value is None (not set)
+        if v is None:
+            return v
+        return v
 
 
 # Create global settings instance

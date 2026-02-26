@@ -3,13 +3,11 @@ RAG (Retrieval-Augmented Generation) service using LangChain.
 File: backend/app/services/rag_service.py
 """
 
-from langchain.embeddings import OpenAIEmbeddings
-from langchain.vectorstores import Pinecone
-from langchain.llms import OpenAI
-from langchain.chat_models import ChatOpenAI
+from langchain_openai import OpenAIEmbeddings, OpenAI, ChatOpenAI
+from langchain_pinecone import PineconeVectorStore
 from langchain.chains import RetrievalQA
-from langchain.prompts import PromptTemplate
-from langchain.schema import Document
+from langchain_core.prompts import PromptTemplate
+from langchain_core.documents import Document
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 import pinecone
 import logging

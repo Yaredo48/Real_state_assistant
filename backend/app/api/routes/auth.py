@@ -31,7 +31,7 @@ from app.schemas.user import (
     EmailVerification
 )
 from app.models.user import User
-from app.api.dependencies import get_current_user, get_current_active_user
+from app.api.routes.dependencies import get_current_user, get_current_active_user
 from app.core.config import settings
 
 router = APIRouter()

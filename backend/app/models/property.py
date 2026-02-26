@@ -34,7 +34,7 @@ class Property(BaseModel):
     status = Column(String(50), default="draft", index=True)  # draft, analyzing, completed
     
     # Property metadata
-    metadata = Column(JSON, default={})
+    extra_data = Column(JSON, default={})
     
     # Relationships
     user = relationship("User", back_populates="properties")

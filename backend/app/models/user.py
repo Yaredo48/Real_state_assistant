@@ -48,7 +48,7 @@ class User(BaseModel):
     locked_until = Column(DateTime, nullable=True)
     
     # Metadata
-    metadata = Column(JSON, default={})
+    extra_data = Column(JSON, default={})
     
     # Relationships
     properties = relationship("Property", back_populates="user", cascade="all, delete-orphan")
@@ -77,3 +77,9 @@ class User(BaseModel):
     def is_verified(self) -> bool:
         """Check if email is verified."""
         return self.email_verified
+    
+
+
+# Add to User class relationships
+analysis_jobs = relationship("AnalysisJob", back_populates="user", cascade="all, delete-orphan")
+reports = relationship("Report", back_populates="user", cascade="all, delete-orphan")

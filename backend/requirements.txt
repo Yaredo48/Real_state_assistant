@@ -1,5 +1,5 @@
 # FastAPI framework
-fastapi>=0.104,<0.105
+fastapi>=0.109,<0.110
 uvicorn[standard]>=0.24,<0.25
 
 # Database
@@ -43,8 +43,8 @@ pdf2image
 pytesseract
 
 # OCR Support
-tesseract-ocr  # System dependency
-tesseract-ocr-amh  # Amharic language pack
+# tesseract-ocr is a system dependency
+# Install via: sudo apt-get install tesseract-ocr (Ubuntu/Debian)
 
 # File Handling
 python-magic
@@ -70,3 +70,15 @@ nltk
 
 # Utils
 tenacity
+
+
+
+# PDF Generation
+reportlab
+
+# HTML to PDF (optional)
+weasyprint
+
+# Data Processing
+pandas
+numpy

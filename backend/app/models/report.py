@@ -27,7 +27,7 @@ class Report(Base):
     status = Column(String(50), default="draft")  # draft, generated, viewed
     created_at = Column(DateTime, default=datetime.utcnow)
     viewed_at = Column(DateTime)
-    metadata = Column(JSON, default={})
+    extra_data = Column(JSON, default={})
     
     # Constraints
     __table_args__ = (

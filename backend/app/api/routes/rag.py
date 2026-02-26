@@ -11,7 +11,7 @@ from uuid import UUID
 from app.core.database import get_db
 from app.models.user import User
 from app.models.document import Document
-from app.api.dependencies import get_current_active_user, require_credits
+from app.api.routes.dependencies import get_current_active_user, require_credits
 from app.services.enhanced_document_service import enhanced_document_processor
 from app.services.rag_service import rag_service
 from app.services.vector_service import vector_service

@@ -25,7 +25,7 @@ class Payment(Base):
     payment_method = Column(String(50))
     report_id = Column(UUID(as_uuid=True), ForeignKey("reports.id"), unique=True)
     created_at = Column(DateTime, default=datetime.utcnow)
-    metadata = Column(JSON, default={})
+    extra_data = Column(JSON, default={})
     
     # Relationships
     user = relationship("User", back_populates="payments")

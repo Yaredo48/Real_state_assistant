@@ -11,7 +11,7 @@ from uuid import UUID
 from app.core.database import get_db
 from app.schemas.user import UserResponse, UserUpdate
 from app.models.user import User
-from app.api.dependencies import get_current_active_user, require_roles
+from app.api.routes.dependencies import get_current_active_user, require_roles
 
 router = APIRouter()
 

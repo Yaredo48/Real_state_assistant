@@ -24,7 +24,7 @@ from app.schemas.document import (
 from app.models.document import Document
 from app.models.property import Property
 from app.models.user import User
-from app.api.dependencies import get_current_active_user, require_credits
+from app.api.routes.dependencies import get_current_active_user, require_credits
 from app.services.file_service import file_service
 from app.services.task_queue import task_queue
 

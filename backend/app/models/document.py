@@ -46,7 +46,7 @@ class Document(BaseModel):
     processed_at = Column(DateTime, nullable=True)
     
     # Metadata for additional info
-    metadata = Column(JSON, default={})
+    extra_data = Column(JSON, default={})
     
     # Error tracking
     error_message = Column(Text, nullable=True)
@@ -82,7 +82,7 @@ class DocumentChunk(BaseModel):
     
     # Chunk metadata
     token_count = Column(Integer)
-    metadata = Column(JSON, default={})
+    extra_data = Column(JSON, default={})
     
     # Relationships
     document = relationship("Document", back_populates="chunks")
